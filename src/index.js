@@ -11,11 +11,12 @@ const { DB_URL } = process.env;
 mongoose.connect(DB_URL, {
   useNewUrlParser: true,
   useFindAndModify: false,
-  useCreateIndex: true
+  useCreateIndex: true,
+  useUnifiedTopology: true
 });
 
 const pubsub = new PubSub();
 const server = new GraphQLServer({ typeDefs, resolvers, context: { pubsub } });
 mongoose.connection.once("open", () =>
-  server.start(() => console.log("We make magic over at localhost:4000"))
+  server.start(() => console.log("We make magic over at http://localhost:4000"))
 );
